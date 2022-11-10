@@ -1,8 +1,28 @@
 const express = require('express')
 const https = require('https')
+var mysql = require('mysql')
 
 const app = express()
 const port = 3000
+
+
+// Connection a la base de donnée + test de connection
+var db = mysql.createConnection({
+  host: 'localhost',
+  port: '3306',
+  user: 'root',
+  password: '',
+  database: 'nodejs'
+})
+
+db.connect(function(err){
+  if (err) {
+      console.log('error connecting: ' + err.stack);
+      return;
+  }
+
+  console.log('connected as id ' + db.threadId)
+})
 
 app.use('/public' , express.static('public'))
 
